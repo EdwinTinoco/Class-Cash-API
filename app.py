@@ -24,7 +24,7 @@ def home():
 
 
 # Enpoints for Students table------------------------------------------------------------------------
-# POST
+# POST STUDENT
 @app.route('/add-student', methods=['POST'])
 def add_student():   
    students_first_name = request.json['students_first_name']
@@ -56,7 +56,7 @@ def get_all_students(id):
 
    return jsonify(all_students)
 
-# GET ONE
+# GET ONE STUDENT
 @app.route('/student/<id>', methods=['GET'])
 def get_student(id):
    cur = mysql.connection.cursor()
@@ -67,7 +67,7 @@ def get_student(id):
    
    return jsonify(student)   
 
-# PUT  
+# PUT STUDENT
 @app.route('/student-update/<id>', methods=['PUT'])
 def update_student(id):
    students_first_name = request.json['students_first_name']
@@ -85,7 +85,7 @@ def update_student(id):
 
    return jsonify('Student updated successfully')
 
-# DELETE
+# DELETE STUDENT
 @app.route('/delete-student/<id>', methods=['DELETE'])
 def delete_student(id):
    cur = mysql.connection.cursor()
@@ -113,7 +113,7 @@ def update_bank_current_total(id):
 
 
 # Enpoints for Users table------------------------------------------------------------------------
-# POST to register user
+# POST TO REGISTER USER
 @app.route('/register', methods=['POST'])
 def register_user():   
    users_first_name = request.json['users_first_name']
@@ -149,7 +149,7 @@ def register_user():
 
       return jsonify('User registered successfully')
 
-# POST Login User
+# POST LOGIN USER
 @app.route('/login', methods=['POST'])
 def login_user():
    users_email = request.json['email']
@@ -190,7 +190,7 @@ def get_user(id):
 
    return jsonify(user)
 
-# DELETE
+# DELETE USER
 @app.route('/delete-user/<id>', methods=['DELETE'])
 def delete_user(id):
    cur = mysql.connection.cursor()
@@ -202,8 +202,21 @@ def delete_user(id):
    return jsonify('User deleted')
 
 
+# Enpoints for grades table------------------------------------------------------------------------------
+# GET ALL GRADES 
+@app.route('/grades', methods=['GET'])
+def get_all_grades():
+   cur = mysql.connection.cursor()
+   cur.callproc("spGetAllGrades", ())
+   all_grades = cur.fetchall()
+
+   cur.close()
+  
+   return jsonify(all_grades)  
+
+
 # Enpoints for grades_groups table------------------------------------------------------------------------
-# GET GROUPS BY TEACHER ID
+# GET GROUPS BY USER ID
 @app.route('/grades-groups/<id>', methods=['GET'])
 def get_grades_groups(id):
    cur = mysql.connection.cursor()
