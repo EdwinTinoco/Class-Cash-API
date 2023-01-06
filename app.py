@@ -6,7 +6,7 @@ import bcrypt
 import os
 
 app = Flask(__name__)
-CORS(app)
+CORS(app)  
 heroku = Heroku(app)
 
 app.config['MYSQL_HOST'] = os.environ.get('HOST')
@@ -20,7 +20,7 @@ mysql = MySQL(app)
 # Enpoints for Home page ------------------------------------------------------------------------------
 @app.route('/')
 def home():    
-    return "<h1>Class Cash Web Application</h1>"
+    return "<h1>Class Cash API</h1>"
 
 
 # Enpoints for Students table------------------------------------------------------------------------
